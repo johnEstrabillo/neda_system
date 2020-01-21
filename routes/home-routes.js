@@ -1,12 +1,9 @@
 const router = require('express').Router();
+const app = require('../app');
+const userInfo = require('../model/user_info');
 
 	var navs = "";
 	
-	router.get('/login', (req, res)=>{
-
-		res.render('./component/login', {navs: 'login'});
-	})
-
 	router.get('/register', (req, res)=>{
 		res.render('./component/register', {navs: 'register'});
 	})
@@ -14,5 +11,10 @@ const router = require('express').Router();
 	router.get('/about', (req, res)=>{
 		res.render('./component/about', {navs: 'about'});
 	})
+
+
+	
+
+
 
 module.exports = router;
