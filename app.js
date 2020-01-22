@@ -23,6 +23,9 @@ const app = express();
 userControl(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/js', express.static('js'));
+app.use('/fonts', express.static('fonts'));
+app.use('/css', express.static('css'));
 app.use(
   session({
     secret: keys.sessionKey.secretKey,

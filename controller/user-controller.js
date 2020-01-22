@@ -3,6 +3,7 @@ const keys = require('../config/keys')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const userInfo = require('../model/user_info');
+const vehicleInfo = require('../model/vehicle');
 
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
@@ -31,13 +32,39 @@ module.exports = function(app){
 
 	  		if(user){
 
-	  			req.session.user = user.email;
+	  			req.session.user = user.fullname;
+	  			req.session.userId = user._id;
 	  			return res.redirect('landing');
 	  			res.end('done');
 	  		}
 	  	});
+	})
 
+	  
+	  app.post('/add_vehicle', (req, res, next)=>{
 
+	  	vehicleInfo.findOne({
+	  		brand: req.body.brand,
+  			model: req.body.model,
+  			year: req.body.year
+	  	}, (err, user)=>{
+
+	  		if(user){
+	  			console.log('Vehicle Already Exist')
+	  			return false;
+	  		}else{
+	  			new vehicleInfo({
+	  				brand: req.body.brand,
+		  			model: req.body.model,
+		  			year: req.body.year
+	  			}).save(()=>{
+	  				console.log('Data Saved Successfully')
+	  			});
+	  		}
+
+		
+
+	  	});
 	})
 
 

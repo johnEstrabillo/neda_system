@@ -22,41 +22,43 @@
             <div class="content-wrapper">
 
                 <div class="content-container">
-                  <%-include includes/topbar.ejs%>
-                  <%-include includes/leftbar.ejs%>
+                  <%-include ../includes/topbar.ejs%>
+                  <%-include ../includes/leftbar.ejs%>
                   <!---Body include here -->
                     <div class="main-page">
-                        <div class="container-fluid">
-
-                            <div class="col-sm-5 col-sm-offset-7 myPadding"><br>
-                                <input type="text" class="btn-block" id="myInput" name="" placeholder="Search Here...">
+                        <div class="container-fluid col-sm-6 col-sm-offset-3 myBorder">
+                          <form autocomplete="off">
+                            <p class="h2">Add Vehicle:</p>
+                            <hr>
+                            <div class="form-group">
+                              <label for="vehicleBrand">Vehicle Brand:</label>
+                              <input type="text" class="form-control" id="vehicleBrand">
                             </div>
 
-                            <table class="table" id="myTable">
-                              <thead class="thead-dark">
-                                <tr>
-                                  <th scope="col">Brand</th>
-                                  <th scope="col">Model</th>
-                                  <th class="text-center" scope="col">Action</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <%vehicle.forEach(function(vehicle){%>
-                                <tr class="myData">
-                                    <td><%-vehicle.brand.charAt(0).toUpperCase() + vehicle.brand.slice(1)%></td>  
-                                    <td><%-vehicle.model.charAt(0).toUpperCase() + vehicle.model.slice(1)%></td>  
-                                    <td class="text-center modButtons">
-                                        <a href="admin/edit"><span class="fa fa-pencil"></span></a> &nbsp | &nbsp
-                                        <a href="admin/edit"><span class="fa fa-trash"></span></a>
-                                    </td>  
-                                </tr>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Vehicle Model:</label>
+                              <input type="text" class="form-control" id="vehicleModel">
+                            </div>
 
-                                <%})%>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Year Model: (Optional)</label>
+                              <input type="text" class="form-control" id="modelYear">
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <button type="submit" class="btn btn-success btn-block">Submit</button>
+                                </div>
+
+                                <div class="col-sm-6">
+                                  <a href='/admin/landing' class="btn btn-danger btn-block">Cancel</a>
+                                </div>
                                 
-                              </tbody>
-                            </table>    
-
+                                
+                              </div>
+                            </div>
                             
+                          </form>
                         </div>
                     </div>
                     <!-- /.main-page -->
@@ -109,40 +111,69 @@
                   "debug": false,
                   "newestOnTop": false,
                   "progressBar": false,
-                  "positionClass": "toast-top-left",
+                  "positionClass": "toast-top-right",
                   "preventDuplicates": false,
                   "onclick": null,
                   "showDuration": "300",
-                  "hideDuration": "800",
+                  "hideDuration": "1000",
                   "timeOut": "5000",
-                  "extendedTimeOut": "800",
+                  "extendedTimeOut": "1000",
                   "showEasing": "swing",
                   "hideEasing": "linear",
                   "showMethod": "fadeIn",
                   "hideMethod": "fadeOut"
                 }
-                toastr["success"]("<%-fullname%>, Welcome to NEDA Management System!");
+                //toastr["success"]("<%-fullname%>, Welcome to NEDA Management System!");
 
             });
+        </script>
 
-            $('document').ready(function(){
-                $("#myInput").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#myTable tr.myData").filter(function() {
-                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                  });
-            })
+
+        <script type="text/javascript">
+          
+          $('document').ready(function(){
+
+          $('form').submit(function(){
+
+            var brand = $('#vehicleBrand').val();
+            var model = $('#vehicleModel').val();
+            var year = $('#modelYear').val();
+
+            $.post('/add_vehicle',{
+              brand: brand,
+              model: model,
+              year: year
+            });
+            alert('Press Enter to Proceed');
+            location.reload();
+          });
+        });
+
+
+
+
         </script>
     </body>
 </html>
 
 
-<style>
-    
 
-    .modButtons{
-        font-size:15px;
-        color:rgb(60,60,60);
-    }
+<style type="text/css">
+  p{
+    padding:0;
+  }
+  input[type='text']{
+    margin:0;
+  }
+
+  .myBorder{
+    border:1px solid #ccc;
+    padding-bottom:20px;
+    margin-top:30px;
+    background-color:white;
+  }
+
+  .row .col-sm-6{
+    padding:1px;
+  }
 </style>
