@@ -169,6 +169,18 @@
           alert('Do not leave empty Fields');
           return false;
       }else{
+        
+        $.post('/save_owner_vehicle', {
+          plateNumber: plateNumber.toLowerCase(),
+          lastname: lastname.toLowerCase(),
+          firstname: firstname.toLowerCase(),
+          brandName: brandName.toLowerCase(),
+          color: color.toLowerCase(),
+          driver: driver.toLowerCase(),
+          remarks: remarks.toLowerCase()
+        })              
+
+
           $.confirm({
               title: 'Data Saved Successfully',
               content: 'Do you want to Add more data?',
@@ -182,16 +194,6 @@
                    text: 'Yes',
                    btnClass: 'btn-green',
                     action: function () {
-
-                      $.post('/save_owner_vehicle', {
-                          plateNumber: plateNumber.toLowerCase(),
-                          lastname: lastname.toLowerCase(),
-                          firstname: firstname.toLowerCase(),
-                          brandName: brandName.toLowerCase(),
-                          color: color.toLowerCase(),
-                          driver: driver.toLowerCase(),
-                          remarks: remarks.toLowerCase()
-                        })
 
                       location.reload();
 
