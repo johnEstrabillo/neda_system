@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Student Result Management System | Dashboard</title>
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/font-awesome.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/animate-css/animate.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/lobipanel/lobipanel.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/toastr/toastr.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/blue.css" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/red.css" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/green.css" >
+        <link rel="stylesheet" href="../../css/main.css" media="screen" >
+        <script src="../js/modernizr/modernizr.min.js"></script>
+    </head>
+    <body class="top-navbar-fixed">
+        <div class="main-wrapper">
+            <div class="content-wrapper">
+
+                <div class="content-container">
+                  <%-include ../includes/topbar.ejs%>
+                  <%-include ../includes/leftbar.ejs%>
+                  <!---Body include here -->
+                    <div class="main-page">
+                        <div class="container-fluid">
+                          <div class="col-sm-6 col-sm-offset-3 modBorder">
+                            
+                              <p class="h3 text-center">Edit Information</p>
+                              <hr>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Plate Number:</label>
+                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" value="<%-owner.plate_no%>" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Lastname</label>
+                                <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" value="<%-owner.lastname%>" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Firstname</label>
+                                <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp"  value="<%-owner.firstname%>" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Brand Name:</label>
+                                <select class="form-control" id="brandName">
+                                  <%vehicle.forEach(function(vehicle){%>
+                                    <option<%if(owner.brand.toLowerCase() === vehicle.brand.toLowerCase() + ' ' + vehicle.model.toLowerCase()){%> selected <%}%> value="<%-vehicle.brand%> <%-vehicle.model%>"><%-vehicle.brand.toUpperCase()%> <%-vehicle.model.toUpperCase()%></option>
+                                  <%})%>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1" required>Color:</label>
+                                <input type="text" class="form-control" id="color" aria-describedby="emailHelp"  value="<%-owner.color%>">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Driver's Fullname (Optional)</label>
+                                <input type="text" class="form-control" id="driver"  value="<%-owner.driver%>">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Remarks (Optional)</label>
+                                <select class="form-control" id="remarks">
+                                  <option <%if(owner.remarks === 'none'){%> selected <%}%> value="none">None</option>
+                                  <option <%if(owner.remarks === 'personal'){%> selected <%}%>  value="personal">Personal</option>
+                                  <option <%if(owner.remarks === 'official'){%> selected <%}%>  value="official service">Official Service</option>
+                                </select>
+                              </div>
+
+                                <div class="row">
+                                  <div class="col-sm-6">
+                                    <button type="submit" id="submitBtn" class="btn btn-success btn-block">Update</button>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <a href='/admin/view-owner' class="btn btn-danger btn-block">Cancel</a>
+                                  </div>
+                              </div>                                   
+                          </div
+                        </div>
+                    </div>
+                    <!-- /.main-page -->
+
+
+                </div>
+                <!-- /.content-container -->
+            </div>
+            <!-- /.content-wrapper -->
+        </div>
+
+
+
+        <script src="../../js/jquery/jquery-2.2.4.min.js"></script>
+        <script src="../../js/jquery-ui/jquery-ui.min.js"></script>
+        <script src="../../js/bootstrap/bootstrap.min.js"></script>
+        <script src="../../js/pace/pace.min.js"></script>
+        <script src="../../js/lobipanel/lobipanel.min.js"></script>
+        <script src="../../js/iscroll/iscroll.js"></script>
+
+        <!-- ========== PAGE JS FILES ========== -->
+        <script src="../../js/prism/prism.js"></script>
+        <script src="../../js/waypoint/waypoints.min.js"></script>
+        <script src="../../js/counterUp/jquery.counterup.min.js"></script>
+        <script src="../../js/amcharts/amcharts.js"></script>
+        <script src="../../js/amcharts/serial.js"></script>
+        <script src="../../js/amcharts/plugins/export/export.min.js"></script>
+        <link rel="stylesheet" href="../../js/amcharts/plugins/export/export.css" type="text/css" media="all" />
+        <script src="../../js/amcharts/themes/light.js"></script>
+        <script src="../../js/toastr/toastr.min.js"></script>
+        <script src="../../js/icheck/icheck.min.js"></script>
+
+        <!-- ========== THEME JS ========== -->
+        <script src="../../js/main.js"></script>
+        <script src="../../js/production-chart.js"></script>
+        <script src="../../js/traffic-chart.js"></script>
+        <script src="../../js/task-list.js"></script>
+        <script>
+            $(function(){
+
+                // Counter for dashboard stats
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+
+                // Welcome notification
+                toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": false,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+                //toastr["success"]("<%-fullname%>, Welcome to NEDA Management System!");
+                $('document').ready(function(){
+
+
+                  $('#submitBtn').click(function(){
+                  var plateNumber = $('#plateNumber').val();
+                  var lastname = $('#lastname').val();
+                  var firstname = $('#firstname').val();
+                  var brandName = $('#brandName').val();
+                  var color = $('#color').val();
+                  var driver = $('#driver').val();
+                  var remarks = $('#remarks').val();
+
+
+                  if(plateNumber === '' || lastname === '' || firstname === '' || color === ''){
+                    alert('Do not leave empty Fields');
+                    return false;
+                  }else{
+                    $.post('/edit_owner_vehicle', {
+                      id: '<%-owner._id%>',
+                      plateNumber: plateNumber.toLowerCase(),
+                      lastname: lastname.toLowerCase(),
+                      firstname: firstname.toLowerCase(),
+                      brandName: brandName.toLowerCase(),
+                      color: color.toLowerCase(),
+                      driver: driver.toLowerCase(),
+                      remarks: remarks.toLowerCase()
+                    })
+
+                    alert('Data Updated Successfully');
+                    
+                    window.location.href="/admin/view-owner"
+                  }
+
+                  
+
+                })
+
+                })
+                
+
+            });
+        </script>
+    </body>
+</html>
+
+
+<style>
+    .myBorder{
+      border:1px solid #ccc;
+      margin-top:30px;
+      padding-bottom:25px;
+      background-color:white;
+    }
+
+
+    span.label{
+      font-weight:bold;
+      color:black;
+      font-size:15px;
+    }
+
+    span.label p{
+      padding:0px;
+      margin:0;
+      font-size:15px;
+    }
+</style>

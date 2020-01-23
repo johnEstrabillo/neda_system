@@ -4,6 +4,8 @@ const passport = require('passport')
 const mongoose = require('mongoose')
 const userInfo = require('../model/user_info');
 const vehicleInfo = require('../model/vehicle');
+const ownerInfo = require('../model/vehicle-owner');
+
 
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
@@ -61,11 +63,82 @@ module.exports = function(app){
 	  				console.log('Data Saved Successfully')
 	  			});
 	  		}
-
-		
-
 	  	});
 	})
+
+
+
+	app.post('/save_owner_vehicle', (req, res, next)=>{
+	  	ownerInfo.find({plate_no: req.body.plateNumber}, (err, user)=>{
+	  		if (user.length >= 1){
+	  			console.log('Plate Number Already Registered.')
+	  		}else{
+	  			new ownerInfo({
+					plate_no: req.body.plateNumber,
+					lastname: req.body.lastname,
+					firstname: req.body.firstname,
+					brand: req.body.brandName,
+					color: req.body.color,
+					driver: req.body.driver,
+					remarks: req.body.remarks
+
+	  			}).save((err)=>{
+
+	  				console.log('Data Successfully Saved')
+	  			})
+	  		}
+	  	})
+	})
+
+
+
+
+	app.post('/edit_owner_vehicle', (req, res, next)=>{
+	  	ownerInfo.updateOne({_id: req.body.id}, {$set:{
+	  		plate_no: req.body.plateNumber,
+			lastname: req.body.lastname,
+			firstname: req.body.firstname,
+			brand: req.body.brandName,
+			color: req.body.color,
+			driver: req.body.driver,
+			remarks: req.body.remarks
+	  	}}, (err)=>{
+	  		console.log('Data Updated Successfully')
+	  	})
+	})
+
+
+	app.post('/delete-owner-info', (req, res)=>{
+		ownerInfo.deleteOne({_id: req.body.id}, (err)=>{
+			console.log('data deleted');
+		})
+	})
+
+
+	app.post('/delete-vehicle', (req, res)=>{
+		vehicleInfo.deleteOne({_id: req.body.id}, (err)=>{
+			console.log('data deleted');
+		})
+	})
+
+
+
+	app.post('/edit_vehicle', (req, res, next)=>{
+
+		console.log('pasok')
+
+		vehicleInfo.updateOne({_id: req.body.id}, {$set:{
+	  		brand: req.body.brand,
+	  		model: req.body.model,
+	  		year: req.body.year
+	  	}}, (err)=>{
+	  		console.log('Data Updated Successfully')
+	  	})
+	})
+
+
+
+
 
 
 }

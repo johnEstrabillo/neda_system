@@ -37,6 +37,7 @@
                                 <tr>
                                   <th scope="col">Brand</th>
                                   <th scope="col">Model</th>
+                                  <th scope="col">Year Model</th>
                                   <th class="text-center" scope="col">Action</th>
                                 </tr>
                               </thead>
@@ -44,10 +45,11 @@
                                 <%vehicle.forEach(function(vehicle){%>
                                 <tr class="myData">
                                     <td><%-vehicle.brand.charAt(0).toUpperCase() + vehicle.brand.slice(1)%></td>  
-                                    <td><%-vehicle.model.charAt(0).toUpperCase() + vehicle.model.slice(1)%></td>  
+                                    <td><%-vehicle.model.charAt(0).toUpperCase() + vehicle.model.slice(1)%></td>
+                                    <td><%-vehicle.year%></td>  
                                     <td class="text-center modButtons">
-                                        <a href="admin/edit"><span class="fa fa-pencil"></span></a> &nbsp | &nbsp
-                                        <a href="admin/edit"><span class="fa fa-trash"></span></a>
+                                        <a href="/admin/edit-vehicle/<%-vehicle._id%>">Edit</a> &nbsp | &nbsp
+                                        <a class="deleteBtn" delete="<%-vehicle._id%>" href="#">Delete</a>
                                     </td>  
                                 </tr>
 
@@ -94,6 +96,8 @@
         <script src="../js/production-chart.js"></script>
         <script src="../js/traffic-chart.js"></script>
         <script src="../js/task-list.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script>
             $(function(){
 
@@ -121,18 +125,51 @@
                   "showMethod": "fadeIn",
                   "hideMethod": "fadeOut"
                 }
-                toastr["success"]("<%-fullname%>, Welcome to NEDA Management System!");
+                toastr["success"]("Welcome <%-fullname%>");
 
             });
 
             $('document').ready(function(){
+
+                $('.deleteBtn').on('click', function(){
+                  vehicle_id = $(this).attr('delete');
+
+                  $.confirm({
+                       title: 'Delete?',
+                       content: 'This dialog will automatically trigger \'cancel\' in 10 seconds if you don\'t respond.',
+                       autoClose: 'cancel|10000',
+                       boxWidth: '70%',
+                       useBootstrap: false,
+                       type: 'red',
+                       icon: 'fa fa-warning',
+                       buttons: {
+                           deleteUser: {
+                             text: 'Delete',
+                             btnClass: 'btn-red',
+                             action: function () {
+                               
+                               $.post('/delete-vehicle',{
+                                id: vehicle_id
+                               })
+                               alert('Data Deleted')
+                               location.reload();
+                             }
+                           },
+                           cancel: function () {
+                             $.alert("Operation Cancelled");
+                           }
+                       }
+                   });
+
+                })
+
                 $("#myInput").on("keyup", function() {
                     var value = $(this).val().toLowerCase();
                     $("#myTable tr.myData").filter(function() {
                       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                     });
                   });
-            })
+            });
         </script>
     </body>
 </html>
@@ -140,9 +177,9 @@
 
 <style>
     
-
     .modButtons{
         font-size:15px;
-        color:rgb(60,60,60);
+        color:steelblue;
     }
+
 </style>

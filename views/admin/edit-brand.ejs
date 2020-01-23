@@ -6,15 +6,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Student Result Management System | Dashboard</title>
-        <link rel="stylesheet" href="../css/bootstrap.min.css" media="screen" >
-        <link rel="stylesheet" href="../css/font-awesome.min.css" media="screen" >
-        <link rel="stylesheet" href="../css/animate-css/animate.min.css" media="screen" >
-        <link rel="stylesheet" href="../css/lobipanel/lobipanel.min.css" media="screen" >
-        <link rel="stylesheet" href="../css/toastr/toastr.min.css" media="screen" >
-        <link rel="stylesheet" href="../css/icheck/skins/line/blue.css" >
-        <link rel="stylesheet" href="../css/icheck/skins/line/red.css" >
-        <link rel="stylesheet" href="../css/icheck/skins/line/green.css" >
-        <link rel="stylesheet" href="../css/main.css" media="screen" >
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/font-awesome.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/animate-css/animate.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/lobipanel/lobipanel.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/toastr/toastr.min.css" media="screen" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/blue.css" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/red.css" >
+        <link rel="stylesheet" href="../../css/icheck/skins/line/green.css" >
+        <link rel="stylesheet" href="../../css/main.css" media="screen" >
         <script src="../js/modernizr/modernizr.min.js"></script>
     </head>
     <body class="top-navbar-fixed">
@@ -28,26 +28,26 @@
                     <div class="main-page">
                         <div class="container-fluid col-sm-6 col-sm-offset-3 myBorder">
                           
-                            <p class="h2">Add Vehicle:</p>
+                            <p class="h2">Edit Vehicle:</p>
                             <hr>
                             <div class="form-group">
                               <label for="vehicleBrand">Vehicle Brand:</label>
-                              <input type="text" class="form-control" id="vehicleBrand">
+                              <input type="text" class="form-control" id="vehicleBrand" value="<%-vehicle.brand%>">
                             </div>
 
                             <div class="form-group">
                               <label for="exampleInputEmail1">Vehicle Model:</label>
-                              <input type="text" class="form-control" id="vehicleModel">
+                              <input type="text" class="form-control" id="vehicleModel" value="<%-vehicle.model%>">
                             </div>
 
                             <div class="form-group">
                               <label for="exampleInputEmail1">Year Model: (Optional)</label>
-                              <input type="text" class="form-control" id="modelYear">
+                              <input type="text" class="form-control" id="modelYear" value="<%-vehicle.year%>">
                             </div>
                             <div class="col-sm-12">
                               <div class="row">
                                 <div class="col-sm-6">
-                                  <button type="submit" id="submitBtn" class="btn btn-success btn-block">Submit</button>
+                                  <button type="submit" id="submitBtn" class="btn btn-success btn-block">Update</button>
                                 </div>
 
                                 <div class="col-sm-6">
@@ -70,30 +70,30 @@
 
 
 
-        <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-        <script src="../js/jquery-ui/jquery-ui.min.js"></script>
-        <script src="../js/bootstrap/bootstrap.min.js"></script>
-        <script src="../js/pace/pace.min.js"></script>
-        <script src="../js/lobipanel/lobipanel.min.js"></script>
-        <script src="../js/iscroll/iscroll.js"></script>
+        <script src="../../js/jquery/jquery-2.2.4.min.js"></script>
+        <script src="../../js/jquery-ui/jquery-ui.min.js"></script>
+        <script src="../../js/bootstrap/bootstrap.min.js"></script>
+        <script src="../../js/pace/pace.min.js"></script>
+        <script src="../../js/lobipanel/lobipanel.min.js"></script>
+        <script src="../../js/iscroll/iscroll.js"></script>
 
         <!-- ========== PAGE JS FILES ========== -->
-        <script src="../js/prism/prism.js"></script>
-        <script src="../js/waypoint/waypoints.min.js"></script>
-        <script src="../js/counterUp/jquery.counterup.min.js"></script>
-        <script src="../js/amcharts/amcharts.js"></script>
-        <script src="../js/amcharts/serial.js"></script>
-        <script src="../js/amcharts/plugins/export/export.min.js"></script>
+        <script src="../../js/prism/prism.js"></script>
+        <script src="../../js/waypoint/waypoints.min.js"></script>
+        <script src="../../js/counterUp/jquery.counterup.min.js"></script>
+        <script src="../../js/amcharts/amcharts.js"></script>
+        <script src="../../js/amcharts/serial.js"></script>
+        <script src="../../js/amcharts/plugins/export/export.min.js"></script>
         <link rel="stylesheet" href="js/amcharts/plugins/export/export.css" type="text/css" media="all" />
-        <script src="../js/amcharts/themes/light.js"></script>
-        <script src="../js/toastr/toastr.min.js"></script>
-        <script src="../js/icheck/icheck.min.js"></script>
+        <script src="../../js/amcharts/themes/light.js"></script>
+        <script src="../../js/toastr/toastr.min.js"></script>
+        <script src="../../js/icheck/icheck.min.js"></script>
 
         <!-- ========== THEME JS ========== -->
-        <script src="../js/main.js"></script>
-        <script src="../js/production-chart.js"></script>
-        <script src="../js/traffic-chart.js"></script>
-        <script src="../js/task-list.js"></script>
+        <script src="../../js/main.js"></script>
+        <script src="../../js/production-chart.js"></script>
+        <script src="../../js/traffic-chart.js"></script>
+        <script src="../../js/task-list.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script>
@@ -132,56 +132,32 @@
         <script type="text/javascript">
           
           $('document').ready(function(){
-          $('#submitBtn').click(function(){
 
+          $('#submitBtn').click(function(){
+            var id = '<%-vehicle._id%>';
             var brand = $('#vehicleBrand').val();
             var model = $('#vehicleModel').val();
             var year = $('#modelYear').val();
 
             if (year === ''){
-              year = 'Not Specified';
+              year = 'Not Specified'
             }
 
             if(brand === '' || model === ''){
               $.alert('Do not leave empty field.')
             }else{
 
-              $.post('/add_vehicle',{
+              $.post('/edit_vehicle',{
+                id: id,
                 brand: brand,
                 model: model,
                 year: year
               });
-              
-              $.confirm({
-                  title: 'Data Saved Successfully',
-                  content: 'Do you want to Add more data?',
-                  autoClose: 'cancel|10000',
-                  boxWidth: '70%',
-                  useBootstrap: false,
-                 type: 'green',
-                  icon: 'fa fa-check-circle',
-                  buttons: {
-                     deleteUser: {
-                       text: 'Yes',
-                       btnClass: 'btn-green',
-                        action: function () {
-                          
-                          location.reload();
 
-                       }
-                     },
-                      no: function () {
-                       window.location.href = "/admin/landing"
-                       return false;
-                      }
-                  }
-              });
-            }
-
-
-        
-
-            
+              alert('Data Updated Successfully');
+              window.location.href="/admin/landing";
+              return false;
+            }           
           });
         });
 

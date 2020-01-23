@@ -28,65 +28,53 @@
                     <div class="main-page">
                         <div class="container-fluid">
                           <div class="col-sm-6 col-sm-offset-3 modBorder">
-                            <form>
 
                               <p class="h3 text-center">Vehicle and Owner's Info</p>
                               <hr>
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Plate Number:</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" required>
                               </div>
-
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Lastname</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" required>
                               </div>
-
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Firstname</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" required>
                               </div>
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Brand Name:</label>
-                                <select class="form-control">
+                                <select class="form-control" id="brandName">
                                   <%vehicle.forEach(function(vehicle){%>
                                     <option value="<%-vehicle.brand%> <%-vehicle.model%>"><%-vehicle.brand.toUpperCase()%> <%-vehicle.model.toUpperCase()%></option>
                                   <%})%>
                                 </select>
                               </div>
-
-
-
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Color:</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <label for="exampleInputEmail1" required>Color:</label>
+                                <input type="text" class="form-control" id="color" aria-describedby="emailHelp">
                               </div>
-
                               <div class="form-group">
                                 <label for="exampleInputPassword1">Driver's Fullname (Optional)</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                <input type="text" class="form-control" id="driver">
                               </div>
-
-
                               <div class="form-group">
                                 <label for="exampleInputPassword1">Remarks (Optional)</label>
-                                <select class="form-control">
+                                <select class="form-control" id="remarks">
                                   <option value="none">None</option>
                                   <option value="personal">Personal</option>
                                   <option value="official service">Official Service</option>
                                 </select>
                               </div>
-                              
-            
                                 <div class="row">
                                   <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-success btn-block">Submit</button>
+                                    <button type="submit" id="submitBtn" class="btn btn-success btn-block">Submit</button>
                                   </div>
                                   <div class="col-sm-6">
-                                    <a href='/admin/landing' class="btn btn-danger btn-block">Cancel</a>
+                                    <a href='/admin/view-owner' class="btn btn-danger btn-block">Cancel</a>
                                   </div>
-                              </div>
-                                                 </form>                                       
+                              </div>                                   
                           </div>
 
                       
@@ -128,6 +116,8 @@
         <script src="../js/production-chart.js"></script>
         <script src="../js/traffic-chart.js"></script>
         <script src="../js/task-list.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script>
             $(function(){
 
@@ -162,6 +152,63 @@
     </body>
 </html>
 
+<script type="text/javascript">
+  $('document').ready(function(){
+  
+    $('#submitBtn').click(function(){
+      var plateNumber = $('#plateNumber').val();
+      var lastname = $('#lastname').val();
+      var firstname = $('#firstname').val();
+      var brandName = $('#brandName').val();
+      var color = $('#color').val();
+      var driver = $('#driver').val();
+      var remarks = $('#remarks').val();
+
+
+      if(plateNumber === '' || lastname === '' || firstname === '' || color === ''){
+          alert('Do not leave empty Fields');
+          return false;
+      }else{
+          $.confirm({
+              title: 'Data Saved Successfully',
+              content: 'Do you want to Add more data?',
+              autoClose: 'cancel|10000',
+              boxWidth: '70%',
+              useBootstrap: false,
+             type: 'green',
+              icon: 'fa fa-check-circle',
+              buttons: {
+                 deleteUser: {
+                   text: 'Yes',
+                   btnClass: 'btn-green',
+                    action: function () {
+
+                      $.post('/save_owner_vehicle', {
+                          plateNumber: plateNumber.toLowerCase(),
+                          lastname: lastname.toLowerCase(),
+                          firstname: firstname.toLowerCase(),
+                          brandName: brandName.toLowerCase(),
+                          color: color.toLowerCase(),
+                          driver: driver.toLowerCase(),
+                          remarks: remarks.toLowerCase()
+                        })
+
+                      location.reload();
+
+                   }
+                 },
+                  no: function () {
+                   window.location.href = "/admin/view-owner"
+                   return false;
+                  }
+              }
+          });
+              
+      }                  
+    })
+  });
+</script>
+
 <style type="text/css">
   .modBorder{
     margin-top:30px;
@@ -169,4 +216,7 @@
     padding:10px;
     background-color:white;
   }
+
+  
+  .
 </style>

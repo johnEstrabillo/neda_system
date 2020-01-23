@@ -22,7 +22,9 @@
             <div class="content-wrapper">
 
                 <div class="content-container">
-                  <%-include ../includes/topbar.ejs%>
+                  <div class="hidden-sm">
+                   <%-include ../includes/topbar.ejs%>
+                  </div>
                   <%-include ../includes/leftbar.ejs%>
                   <!---Body include here -->
                     <div class="main-page">
@@ -37,15 +39,39 @@
                           <table class="table" id="myTable">
                               <thead class="thead-dark">
                                 <tr>
-                                  <th scope="col">Plate No</th>
-                                  <th scope="col">Owner</th>
-                                  <th scope="col">Vehicle</th>
-                                  <th class="text-center" scope="col">Action</th>
+                                  <th class="plate" scope="col">Plate No</th>
+                                  <th class="owner hidden-xs" scope="col">Owner</th>
+                                  <th class="vehicle hidden-sm hidden-xs" scope="col">Vehicle</th>
+                                  <th class="action text-center" scope="col">Action</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                
 
+                                <style type="text/css">
+                                  .plate{
+                                    width:130px;
+                                  }
+
+                                  .owner{
+                                    width:250px;
+                                  }
+
+                                  .vehicle{
+                                    width:160px;
+                                  }
+                                </style>
+                                <%owners.forEach(function(owner){%>
+                                <tr class="myData">
+                                  <td><%-owner.plate_no%></td>
+                                  <td class="hidden-xs"><%-owner.firstname + ' ' + owner.lastname%></td>
+                                  <td class="hidden-sm hidden-xs"><%-owner.brand%></td>
+                                  <td class="text-center">
+                                    <a href="/admin/view-full-owner/<%-owner._id%>">View</a> &nbsp | &nbsp
+                                    <a href="/admin/edit-vehicle-and-owner-info/<%-owner._id%>">Edit</a> &nbsp | &nbsp
+                                    <a class="deleteBtn" delete="<%-owner._id%>" href="#">Delete</a> 
+                                  </td>
+                                </tr>
+                                <%})%>
                                 
                               </tbody>
                             </table>        
@@ -86,6 +112,8 @@
         <script src="../js/production-chart.js"></script>
         <script src="../js/traffic-chart.js"></script>
         <script src="../js/task-list.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script>
             $(function(){
 
@@ -116,13 +144,61 @@
                 //toastr["success"]("<%-fullname%>, Welcome to NEDA Management System!");
 
             });
+
+
+            $('document').ready(function(){
+                
+
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr.myData").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+
+
+                $("a.deleteBtn").click(function(){
+                  var id = $(this).attr('delete');
+                  
+                  $.confirm({
+                       title: 'Delete?',
+                       content: 'This dialog will automatically trigger \'cancel\' in 10 seconds if you don\'t respond.',
+                       autoClose: 'cancel|10000',
+                       boxWidth: '70%',
+                       useBootstrap: false,
+                       type: 'red',
+                       icon: 'fa fa-warning',
+                       buttons: {
+                           deleteUser: {
+                             text: 'Delete',
+                             btnClass: 'btn-red',
+                             action: function () {
+                               $.post('/delete-owner-info', {
+                                  id: id
+                                })
+                               alert('Data Deleted')
+                               location.reload();
+                               
+                               
+                               
+                             }
+                           },
+                           cancel: function () {
+                             $.alert("Operation Cancelled");
+                           }
+                       }
+                   });
+            
+                  
+                })
+            });
         </script>
     </body>
 </html>
 
 
-<script type="text/javascript">
-    div.myPadding{
-        margin-top:15px;
-    }
-</script>
+<style>
+    td.text-center{
+    color:steelblue;
+  }
+</style>
