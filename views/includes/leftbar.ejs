@@ -44,7 +44,7 @@
                                     </li>
                                     <li class="has-children">
                                         
-                                        <li><a id="logout" href="#"><i class="fa fa fa-server"></i> <span>Logout</span></a></li>
+                                        <li><a id="logout" href="/"><i class="fa fa fa-server"></i> <span>Logout</span></a></li>
 
                                     </li>
                             </div>
@@ -55,7 +55,7 @@
 
     </body>
 </html>
-<script src="../js/jquery/jquery-2.2.4.min.js"></script>
+        <script src="../js/jquery/jquery-2.2.4.min.js"></script>
         <script src="../js/jquery-ui/jquery-ui.min.js"></script>
         <script src="../js/bootstrap/bootstrap.min.js"></script>
         <script src="../js/pace/pace.min.js"></script>
@@ -63,39 +63,3 @@
         <script src="../js/iscroll/iscroll.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-<script type="text/javascript">
-
- $('document').ready(function(){
-          $('#logout').click(function(){
-
-              
-              $.confirm({
-                  title: 'Log out',
-                  content: 'Do you really want to log out?',
-                  autoClose: 'cancel|10000',
-                  boxWidth: '70%',
-                  useBootstrap: false,
-                 type: 'blue',
-                  
-                  buttons: {
-                     deleteUser: {
-                       text: 'Yes',
-                       btnClass: 'btn-blue',
-                        action: function () {
-                          
-                          window.location.href = '/';
-                          return false;
-
-                       }
-                     },
-                      no: function () {
-                       
-                      }
-                  }
-              });
-            
-          });
-        });
-
- </script>
