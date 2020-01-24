@@ -27,13 +27,15 @@
                   <!---Body include here -->
                     <div class="main-page">
                         <div class="container-fluid">
-                          <div class="col-sm-6 col-sm-offset-3 modBorder">
+
+
+                          <div class="col-sm-6 modBorder">
 
                               <p class="h3 text-center">Vehicle and Owner's Info</p>
                               <hr>
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Plate Number:</label>
-                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" required>
+                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" required autocomplete="off">
                               </div>
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Lastname</label>
@@ -76,6 +78,36 @@
                                   </div>
                               </div>                                   
                           </div>
+
+
+                          
+                            
+                              <div class="container-fluid col-sm-6 myBorder2 pre-scrollable">
+                                <p><b>Registered Plate Number List:</b></p>
+                                <%owner.forEach(function(owner){%>
+
+                    
+                                  <p class="text-justify dataPlate"><%-owner.plate_no.toUpperCase()%> &nbsp &nbsp<%-owner.lastname.toUpperCase() + ',  ' + owner.firstname.toUpperCase()%></p>
+                              
+                                <%})%>
+                              </div>
+
+                              <script type="text/javascript">
+                              $('document').ready(function(){
+                                $("#plateNumber").on("keyup", function() {
+                                  var value = $(this).val().toLowerCase();
+                                  $(".myBorder2 .dataPlate").filter(function() {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                  });
+                                });
+                              });
+                                
+                              </script>
+                            
+                          
+                          
+
+
 
                       
                             
@@ -217,6 +249,18 @@
     border:1px solid #ccc;
     padding:10px;
     background-color:white;
+  }
+
+   .myBorder2{
+    border:1px solid #ccc;
+    padding:10px;
+    padding-bottom:20px;
+    margin-top:30px;
+    background-color:white;
+    font-family:tahoma;
+    min-height:300px;
+    max-height:300px;
+    
   }
 
   

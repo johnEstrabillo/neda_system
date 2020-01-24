@@ -8,6 +8,7 @@ router.get('/login', (req, res)=>{
 		console.log(req.session.user)
 		console.log(req.session.userId)
 
+	
 		if(req.session.userId){
 			res.redirect('landing');
 			return res.end('done');
@@ -57,7 +58,9 @@ router.get('/view-owner', (req, res)=>{
 router.get('/add-owner-vehicle-info', (req, res)=>{
 	if(req.session.userId){
 		vehicleInfo.find({}, (err, user)=>{
-			res.render('admin/add-owner-vehicle', {fullname: req.session.user, vehicle: user})
+			ownerInfo.find({}, (err, data)=>{
+				res.render('admin/add-owner-vehicle', {fullname: req.session.user, vehicle: user, owner: data})
+			}).sort({plate_no:1})
 		}).sort({brand:1})
 	}else{
 		res.redirect('login')
@@ -69,7 +72,7 @@ router.get('/view-full-owner/:ownId', (req, res)=>{
 	if(req.session.userId){
 		ownerInfo.findOne({_id: req.params.ownId}, (err, data)=>{
 			if(data){
-				res.render('admin/view-full-owner', ({ fullname: req.session.user, owner: data }))
+				res.render('admin/view-full-owner', ({ fullname: req.session.user, owner: data}))
 			}
 		})
 	}else{
@@ -82,6 +85,7 @@ router.get('/edit-vehicle-and-owner-info/:ownId', (req, res)=>{
 	if(req.session.userId){
 		ownerInfo.findOne({_id: req.params.ownId}, (err, data)=>{
 			vehicleInfo.find({}, (err, user)=>{
+
 				res.render('admin/edit-vehicle-owner', ({ fullname: req.session.user, owner: data, vehicle: user}))
 			}).sort({brand:1})
 		})
@@ -104,6 +108,26 @@ router.get('/edit-vehicle/:id', (req, res)=>{
 	}else{
 		res.redirect('../login')
 	}	
+})
+
+
+router.get('/reset-account', (req, res)=>{
+	userInfo.findOne({username:'admin', password: 'admin00'}, (err, user)=>{
+		if (user){
+			res.send('Username: admin                  ****                Password: admin00')
+		}else{
+			new userInfo({
+				idNumber: '9jkl3593209jk543l4k3j',
+				 username: 'admin',
+				 password: 'admin00',
+				 email: 'sampleEmail@gmail.com',
+				 fullname: 'Odin Dungca'
+			}).save(()=>{
+				res.send('Username: admin                  -----                   Password: admin00')
+			})
+		}
+	})
+	
 })
 
 
