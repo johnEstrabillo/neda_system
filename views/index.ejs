@@ -7,24 +7,76 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Library System</title>
   </head>
   <body>
    
         
-        <div class="jumbotron bg-primary text-center jumbotron-fluid">
+        <div class="jumbotron myBg text-center jumbotron-fluid">
           <div class="container">
-           <h3 class="display-6 text-white">VEHICLE INFORMATION MANAGEMENT SYSTEM</h3>
-            <p class="lead text-white">NEDA REGION III</p>  
+           
           </div>
         </div>
 
-        <div class="container-fluid">
-          <div class="my-header">
-            <%include partials/header.ejs%>
+          <div class="container">
+            <div class="my-header">
+              <%include partials/header.ejs%>
+            </div>
+            <div class="container">
+            <div class="col-sm-5 myTextLeft hidden-xs hidden-sm">
+              <img src="../assets/neda_bg.png" id="nedaLogo" class="img img-responsive">
+            </div>
+            <div class="col-sm-7 myText">
+              <p class="h3">National Economics and Development Authority</p><hr>
+              <p class="text-justify">The National Economic and Development Authority is the country’s premier socioeconomic planning body, highly regarded as the authority in macroeconomic forecasting and policy analysis and research. It provides high-level advice to policymakers in Congress and the Executive Branch. </p>
+            </div>
           </div>
+        </div><hr>
+
+        <div class="col-sm-4 borderCustom">
+          <p class="h3 mission"><span class="fa fa-road">&nbsp</span>MISSION</p><hr>
+          <p class="text-justify">
+            NEDA envisions the country where public and private sectors perform their respective roles efficiently, such that people have equal access to opportunities, resulting in inclusive development and zero poverty.
+          </p>
         </div>
+
+        <div class="col-sm-4 borderCustom">
+          <p class="h3 vision"><span class="fa fa-eye"> &nbsp</span>VISION</p><hr>
+          <p class="text-justify">VISION
+NEDA envisions the country where public and private sectors perform their respective roles efficiently, such that people have equal access to opportunities, resulting in inclusive development and zero poverty.</p>
+        </div>
+
+
+        <div class="col-sm-4 borderCustom">
+          <p class="h3 core"><span class="fa fa-heart">&nbsp</span>CORE VALUES</p><hr>
+          <p class="text-justify">
+            NEDA’s core values are <span class="boldMe">Integrity, Professionalism, and Excellence.</span>
+          </p>
+        </div>
+        <style type="text/css">
+          img#nedaLogo{
+            max-width:300px;
+            height:auto;
+          }
+
+          .container{
+            display:inline-block;
+          }
+
+          p.core{
+            color:rgb(212, 91, 80);
+          }
+
+          p.vision{
+            color:rgb(109, 196, 106);
+          }
+
+          p.mission{
+            color:steelblue;
+          }
+        </style>
 
     <script src="https://unpkg.com/vue"></script>
     <!-- Optional JavaScript -->
@@ -51,6 +103,50 @@
 </script>
 
 <style type="text/css">
+
+  .myText{
+    float:right;
+    border:3px solid rgb(88, 181, 85);
+    padding-top:20px;
+    font-family:tahoma;
+    height:300px;
+    background-color:rgb(240,240,240);
+    border-radius:15px;
+  }
+
+
+.myTextLeft{
+    float:left;
+  }
+
+
+  .borderCustom{
+
+    float:left;
+    padding:10px 30px;
+
+    margin-top:25px;
+    margin-bottom:15px;
+  }
+
+
+  .boldMe{
+    font-weight:bold;
+  }
+
+
+  p.text-justify{
+    color:rgb(90,90,90);
+  }
+
+  .myBg{
+    background-image:url('../assets/ambisyon.png');
+    width:auto;
+    background-size:cover;
+    height:300px;
+    background-position:center;
+  }
+
 
 
 

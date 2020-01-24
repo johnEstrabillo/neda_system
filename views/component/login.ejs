@@ -13,18 +13,20 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Login</title>
   </head>
   <body>
-    
+      
         
-        <div class="jumbotron bg-primary text-center jumbotron-fluid">
+        
+          <div class="jumbotron myBg text-center jumbotron-fluid">
           <div class="container">
-           <h3 class="display-6 text-white">VEHICLE INFORMATION MANAGEMENT SYSTEM</h3>
-            <p class="lead text-white">NEDA REGION III</p>  
+           
           </div>
         </div>
+        
 
         <div class="container-fluid">
           <div class="my-header">
@@ -36,7 +38,7 @@
             <form autocomplete=off>
             <div class="col-sm-6">
              
-                <div class="form-group">
+                <div class="form-group myBox2">
                   <label for="exampleInputEmail1">Username</label>
                   <input type="text" id='username' class="form-control" aria-describedby="emailHelp">
                 </div>
@@ -52,6 +54,7 @@
               
             </div>
             </form>
+            
 
             
 
@@ -79,8 +82,10 @@
               email: user,
               password: pass
             });
-            alert('Press Enter to Proceed');
+            alert('Press Enter to Verify')
             location.reload();
+            return false;
+            
           });
         });
          
@@ -92,6 +97,20 @@
   .myBorder{
     border:1px solid black;
   }
-</style>
+
+  .myBg{
+    background-image:url('../assets/ambisyon.png');
+    width:auto;
+    background-size:cover;
+    height:300px;
+    background-position:center;
+  }
+
+  .myBox{
+    float:right;
+  }
+
+
+  </style>
 
 
