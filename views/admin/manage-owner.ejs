@@ -36,35 +36,31 @@
                                 <input type="text" class="btn-block" id="myInput" name="" placeholder="Search Here...">
                             </div>
 
+                            <style type="text/css">
+                              .maxWidth{
+                                width:100%;
+                                max-height:500px;
+                                
+                              }
+
+                              
+                            </style>
+                          <div class="maxWidth pre-scrollable">
                           <table class="table" id="myTable">
                               <thead class="thead-dark">
                                 <tr>
                                   <th class="plate" scope="col">Plate No</th>
                                   <th class="owner hidden-xs" scope="col">Owner</th>
-                                  <th class="vehicle hidden-sm hidden-xs" scope="col">Vehicle</th>
                                   <th class="action text-center" scope="col">Action</th>
                                 </tr>
                               </thead>
                               <tbody>
 
-                                <style type="text/css">
-                                  .plate{
-                                    width:130px;
-                                  }
-
-                                  .owner{
-                                    width:250px;
-                                  }
-
-                                  .vehicle{
-                                    width:160px;
-                                  }
-                                </style>
+                              
                                 <%owners.forEach(function(owner){%>
                                 <tr class="myData">
-                                  <td><%-owner.plate_no%></td>
-                                  <td class="hidden-xs"><%-owner.firstname + ' ' + owner.lastname%></td>
-                                  <td class="hidden-sm hidden-xs"><%-owner.brand%></td>
+                                  <td><%-owner.plate_no.toUpperCase()%></td>
+                                  <td class="hidden-xs"><%-owner.fullname.toUpperCase()%></td>
                                   <td class="text-center">
                                     <a href="/admin/view-full-owner/<%-owner._id%>">View</a> &nbsp | &nbsp
                                     <a href="/admin/edit-vehicle-and-owner-info/<%-owner._id%>">Edit</a> &nbsp | &nbsp
@@ -74,7 +70,8 @@
                                 <%})%>
                                 
                               </tbody>
-                            </table>        
+                            </table>
+                            </div>        
                         </div>
                     </div>
                     <!-- /.main-page -->
@@ -200,5 +197,9 @@
 <style>
     td.text-center{
     color:steelblue;
+  }
+
+  tr.myData:hover{
+    background-color:rgb(210,210,210);
   }
 </style>

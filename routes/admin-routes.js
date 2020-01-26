@@ -35,7 +35,9 @@ router.get('/landing', (req, res)=>{
 
 router.get('/add-new-vehicle', (req, res)=>{
 	if(req.session.userId){
-		res.render('admin/add-brand', {fullname: req.session.user})
+		vehicleInfo.find({}, (err, user)=>{
+			res.render('admin/add-brand', {fullname: req.session.user, vehicle: user})		
+		}).sort({brand:1})
 	}else{
 		
 		res.redirect('login')
@@ -47,7 +49,7 @@ router.get('/view-owner', (req, res)=>{
 	if(req.session.userId){
 		ownerInfo.find({}, (err, owner)=>{
 			res.render('admin/manage-owner', {fullname: req.session.user, owners:owner})
-		}).sort({plate_no:1})		
+		}).sort({fullname:1})		
 	}else{
 		
 		res.redirect('login')

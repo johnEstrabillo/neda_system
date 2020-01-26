@@ -143,8 +143,12 @@
               year = 'Not Specified'
             }
 
-            if(brand === '' || model === ''){
-              $.alert('Do not leave empty field.')
+            if(model === ''){
+              model = '(Not Specified)'
+            }
+
+            if(brand === ''){
+              $.alert('Do not leave Vehicle Brand Empty.')
             }else{
 
               $.post('/edit_vehicle',{

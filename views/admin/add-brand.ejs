@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,6 +25,40 @@
                   <%-include ../includes/leftbar.ejs%>
                   <!---Body include here -->
                     <div class="main-page">
+                        <div class="container-fluid col-sm-6 col-sm-offset-3">
+                          <div class="row"><br>
+                            <input type="text" class="btn-block" id='search' placeholder="Search Here..">
+                          </div>
+                        </div>
+                        <div class="container-fluid col-sm-6 col-sm-offset-3 myBorder3 pre-scrollable">
+                          <%vehicle.forEach(function(vehicle){%>
+                            <p class="dataModel"><%-vehicle.brand%> <%-vehicle.model%></p>
+                          <%})%>
+                        </div>
+
+                        <script type="text/javascript">
+                              $('document').ready(function(){
+                                $("#search").on("keyup", function() {
+                                  var value = $(this).val().toLowerCase();
+                                  $(".myBorder3 .dataModel").filter(function() {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                  });
+                                });
+                              });
+                                
+                        </script>
+
+                        <style type="text/css">
+
+
+                          .myBorder3{
+                            margin-top:20px;
+                            border:1px solid #ccc;
+                            height:160px;
+                          }
+                        </style>
+
+
                         <div class="container-fluid col-sm-6 col-sm-offset-3 myBorder">
                           
                             <p class="h2">Add Vehicle:</p>
@@ -145,8 +178,12 @@
               year = 'Not Specified';
             }
 
-            if(brand === '' || model === ''){
-              $.alert('Do not leave empty field.')
+            if(model === ''){
+              model = '(Not Specified)'
+            }
+
+            if(brand === ''){
+              $.alert('Do not leave Vehicle Brand Empty.')
             }else{
 
               $.post('/add_vehicle',{

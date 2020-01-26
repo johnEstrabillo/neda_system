@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 
 var ownerData = new Schema({
   plate_no: String,
-  lastname: String,
-  firstname: String,
+  fullname: String,
+  firstname:String,
+  lastname:String,
   brand: String,
   color: String,
   driver: String,

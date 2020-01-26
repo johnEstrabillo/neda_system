@@ -71,19 +71,33 @@ module.exports = function(app){
 	app.post('/save_owner_vehicle', (req, res, next)=>{
 	  	ownerInfo.find({plate_no: req.body.plateNumber}, (err, user)=>{
 	  		if (user.length >= 1){
-	  			console.log('Plate Number Already Registered.')
+	  			
+
+	  			if(user[0].plate_no === 'for registration'){
+		  			new ownerInfo({
+						plate_no: req.body.plateNumber,
+						fullname: req.body.fullname,
+						brand: req.body.brandName,
+						color: req.body.color,
+						driver: req.body.driver,
+						remarks: req.body.remarks
+
+		  			}).save((err)=>{
+		  				console.log('Data Successfully Saved')
+		  			})
+		  		}else{
+		  			console.log('Plate Number Already Registered.')
+		  		}
 	  		}else{
 	  			new ownerInfo({
 					plate_no: req.body.plateNumber,
-					lastname: req.body.lastname,
-					firstname: req.body.firstname,
+					fullname: req.body.fullname,
 					brand: req.body.brandName,
 					color: req.body.color,
 					driver: req.body.driver,
 					remarks: req.body.remarks
 
 	  			}).save((err)=>{
-
 	  				console.log('Data Successfully Saved')
 	  			})
 	  		}
@@ -96,13 +110,13 @@ module.exports = function(app){
 	app.post('/edit_owner_vehicle', (req, res, next)=>{
 	  	ownerInfo.updateOne({_id: req.body.id}, {$set:{
 	  		plate_no: req.body.plateNumber,
-			lastname: req.body.lastname,
-			firstname: req.body.firstname,
+			fullname: req.body.fullname,
 			brand: req.body.brandName,
 			color: req.body.color,
 			driver: req.body.driver,
 			remarks: req.body.remarks
 	  	}}, (err)=>{
+	  		if (err) throw err;
 	  		console.log('Data Updated Successfully')
 	  	})
 	})

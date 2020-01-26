@@ -32,43 +32,47 @@
                           <div class="col-sm-6 modBorder">
 
                               <p class="h3 text-center">Vehicle and Owner's Info</p>
-                              <hr>
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Plate Number:</label>
-                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" required autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Lastname</label>
-                                <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" required>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Firstname</label>
-                                <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" required>
-                              </div>
+                              
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Brand Name:</label>
                                 <select class="form-control" id="brandName">
+                                  <option value="not specified">NOT SPECIFIED</option>
                                   <%vehicle.forEach(function(vehicle){%>
                                     <option value="<%-vehicle.brand%> <%-vehicle.model%>"><%-vehicle.brand.toUpperCase()%> <%-vehicle.model.toUpperCase()%></option>
                                   <%})%>
                                 </select>
                               </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Plate Number:</label>
+                                <input type="text" class="form-control" id="plateNumber" aria-describedby="emailHelp" required autocomplete="off">
+                              </div>
+
                               <div class="form-group">
                                 <label for="exampleInputEmail1" required>Color:</label>
                                 <input type="text" class="form-control" id="color" aria-describedby="emailHelp">
                               </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Owner's Fullname / Company Name:</label>
+                                <input type="text" class="form-control" id="fullname" aria-describedby="emailHelp" required>
+                              </div>
+                             
+                              
+                              
                               <div class="form-group">
                                 <label for="exampleInputPassword1">Driver's Fullname (Optional)</label>
                                 <input type="text" class="form-control" id="driver">
                               </div>
                               <div class="form-group">
-                                <label for="exampleInputPassword1">Remarks (Optional)</label>
-                                <select class="form-control" id="remarks">
-                                  <option value="none">None</option>
-                                  <option value="personal">Personal</option>
-                                  <option value="official service">Official Service</option>
-                                </select>
+                                <label for="exampleInputPassword1">Remarks</label>
+                                <input type="text" class="form-control" id="remarks">
                               </div>
+
+                              <div class="form-group">
+                                <p>NOTE: If the vehicle's plate number is For Registration. Please put 'FR' on Plate Number Field.</p>
+                              </div>
+
                                 <div class="row">
                                   <div class="col-sm-6">
                                     <button type="submit" id="submitBtn" class="btn btn-success btn-block">Submit</button>
@@ -87,7 +91,7 @@
                                 <%owner.forEach(function(owner){%>
 
                     
-                                  <p class="text-justify dataPlate"><%-owner.plate_no.toUpperCase()%> &nbsp &nbsp<%-owner.lastname.toUpperCase() + ',  ' + owner.firstname.toUpperCase()%></p>
+                                  <p class="text-justify dataPlate"><%-owner.plate_no.toUpperCase()%></p>
                               
                                 <%})%>
                               </div>
@@ -188,24 +192,42 @@
   $('document').ready(function(){
   
     $('#submitBtn').click(function(){
-      var plateNumber = $('#plateNumber').val();
-      var lastname = $('#lastname').val();
-      var firstname = $('#firstname').val();
+      var plateNumber = $('#plateNumber').val().toLowerCase();
+      var fullname = $('#fullname').val();
       var brandName = $('#brandName').val();
       var color = $('#color').val();
       var driver = $('#driver').val();
       var remarks = $('#remarks').val();
 
 
-      if(plateNumber === '' || lastname === '' || firstname === '' || color === ''){
-          alert('Do not leave empty Fields');
+
+      if (plateNumber === 'fr'){
+        plateNumber = 'for registration'
+      }
+
+      if(color === ''){
+        color = "not specified"
+      }
+
+      if(driver === ''){
+        driver = "not specified"
+      }
+
+      if(remarks === ''){
+        remarks = 'not specified'
+      }
+
+
+
+
+      if(plateNumber === '' || fullname === ''){
+          alert('Do not leave empty Field');
           return false;
       }else{
         
         $.post('/save_owner_vehicle', {
           plateNumber: plateNumber.toLowerCase(),
-          lastname: lastname.toLowerCase(),
-          firstname: firstname.toLowerCase(),
+          fullname: fullname.toLowerCase(),
           brandName: brandName.toLowerCase(),
           color: color.toLowerCase(),
           driver: driver.toLowerCase(),
@@ -256,7 +278,6 @@
     padding:10px;
     padding-bottom:20px;
     margin-top:30px;
-    background-color:white;
     font-family:tahoma;
     min-height:300px;
     max-height:300px;
